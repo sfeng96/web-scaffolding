@@ -1,4 +1,4 @@
-package learning.scaffolding.web.springboot.models;
+package learning.scaffolding.web.springboot.model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

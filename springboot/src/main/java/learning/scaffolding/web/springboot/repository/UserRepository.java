@@ -1,6 +1,6 @@
 package learning.scaffolding.web.springboot.repository;
 
-import learning.scaffolding.web.springboot.models.User;
+import learning.scaffolding.web.springboot.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
