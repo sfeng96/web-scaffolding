@@ -2,6 +2,8 @@ package learning.scaffolding.web.springboot.service;
 
 import lombok.extern.java.Log;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Level;
@@ -16,7 +18,8 @@ public class KafkaExampleConsumer {
 
 
   @KafkaListener(topics = TOPIC)
-  public void listen(String message) {
+  public void listen(@Payload String message, Acknowledgment acknowledgment) {
     logger.log(Level.INFO, message);
+    acknowledgment.acknowledge();
   }
 }
