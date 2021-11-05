@@ -1,34 +1,35 @@
 package learning.scaffolding.web.webflux.controller;
 
-import learning.scaffolding.web.webflux.models.User;
-import learning.scaffolding.web.webflux.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import learning.scaffolding.web.webflux.models.Order;
+import learning.scaffolding.web.webflux.repository.ReactiveOrderRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping(value = "/user")
-@AllArgsConstructor
+@RequestMapping(value = "order")
+@RequiredArgsConstructor
 @Slf4j
 public class SimpleRestController {
-  private final UserRepository userRepository;
+
+  private final ReactiveOrderRepository reactiveOrderRepository;
 
   @GetMapping
-  public Mono<User> getUserById(@RequestParam(name = "id") int id) {
-    return userRepository
-        .findById(id)
-        .doOnError(throwable -> log.error(throwable.getMessage()))
-        .doOnSuccess(user -> log.info("user returned : {}", user));
+  public Flux<Order> hello() {
+    return reactiveOrderRepository.findAll();
+  }
+
+  @GetMapping("/{orderId}/{productId}")
+  public Mono<Order> getOrderById(@PathVariable Integer orderId) {
+    return reactiveOrderRepository.findById(orderId);
   }
 
   @PostMapping
-  public Mono<User> createUser(@RequestBody User user) {
-    return userRepository.save(user).doOnSuccess(user1 -> log.info("user created : {}", user1));
+  public Mono<Order> createUser(@RequestBody Order user) {
+    return reactiveOrderRepository.insertUser(user.getOrderId(), user.getProductId(),
+            user.getAmount());
   }
 
-  @DeleteMapping
-  public Mono<Void> deleteUser(@RequestParam(name = "id") int id) {
-    return userRepository.deleteById(id);
-  }
 }
