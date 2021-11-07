@@ -7,15 +7,15 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 
 @Data
-@Table("orders_list")
+@Table("orders")
 public class Order {
 
-  @Column("order_id")
+  @Column("ORDER_ID")
   private String orderId;
 
-  @Column("product_id")
+  @Column("PRODUCT_ID")
   private String productId;
 
-  @Column("amount")
+  @Column("AMOUNT")
   private BigDecimal amount;
 }

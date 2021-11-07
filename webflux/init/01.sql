@@ -1,11 +1,13 @@
+SET sql_mode = '';
+
 CREATE TABLE orders
 (
     ORDER_ID   VARCHAR(255),
-    PRODUCT_ID INT,
-    AMOUNT     NUMERIC,
+    PRODUCT_ID VARCHAR(255),
+    AMOUNT     DECIMAL(6, 2),
     PRIMARY KEY (ORDER_ID,PRODUCT_ID)
 );
 
 INSERT INTO orders
-VALUES (1, 1, 1.00),
-       (2, 1, 2.00);
+VALUES (1, 1, 1.01),
+       (2, 1, 2.03);

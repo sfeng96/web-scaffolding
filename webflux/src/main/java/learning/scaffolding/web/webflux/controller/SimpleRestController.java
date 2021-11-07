@@ -22,14 +22,16 @@ public class SimpleRestController {
   }
 
   @GetMapping("/{orderId}/{productId}")
-  public Mono<Order> getOrderById(@PathVariable Integer orderId) {
-    return reactiveOrderRepository.findById(orderId);
+  public Flux<Order> getOrderById(@PathVariable String orderId, @PathVariable String productId) {
+    return reactiveOrderRepository.findOrdersByOrderIdAndProductId(orderId, productId);
   }
 
   @PostMapping
-  public Mono<Order> createUser(@RequestBody Order user) {
-    return reactiveOrderRepository.insertUser(user.getOrderId(), user.getProductId(),
-            user.getAmount());
+  public Mono<Order> createOrder(@RequestBody Order order) {
+    return reactiveOrderRepository.saveUser(order.getOrderId(), order.getProductId(),
+            order.getAmount())
+            .doOnSuccess(__ -> log.info("order saved : {}", order))
+            .thenReturn(order);
   }
 
 }

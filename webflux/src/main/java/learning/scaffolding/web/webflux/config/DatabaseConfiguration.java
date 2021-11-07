@@ -1,6 +1,7 @@
 package learning.scaffolding.web.webflux.config;
 
 import io.r2dbc.spi.ConnectionFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.mariadb.r2dbc.MariadbConnectionConfiguration;
 import org.mariadb.r2dbc.MariadbConnectionFactory;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.transaction.ReactiveTransactionManager;
 
 @Configuration
 @EnableR2dbcRepositories
+@Slf4j
 public class DatabaseConfiguration extends AbstractR2dbcConfiguration {
 
   @Override
@@ -21,7 +23,7 @@ public class DatabaseConfiguration extends AbstractR2dbcConfiguration {
         MariadbConnectionConfiguration.builder()
             .username("user")
             .password("password")
-            .database("db")
+            .database("test")
             .host("localhost")
             .port(3306)
             .build());
