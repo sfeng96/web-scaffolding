@@ -28,10 +28,7 @@ public class SimpleRestController {
 
   @PostMapping
   public Mono<Order> createOrder(@RequestBody Order order) {
-    return reactiveOrderRepository.saveUser(order.getOrderId(), order.getProductId(),
-            order.getAmount())
-            .doOnSuccess(__ -> log.info("order saved : {}", order))
-            .thenReturn(order);
+    return reactiveOrderRepository.save(order)
+            .doOnSuccess(__ -> log.info("order saved : {}", order));
   }
-
 }
